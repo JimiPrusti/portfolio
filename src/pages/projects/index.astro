@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<BaseLayout title="Projects">
+  <h1>Projects</h1>
+  <p class="intro">Projects I am building - focused on reporting, website audits, and AI-assisted workflows.</p>
+
+  <article class="project-card project-card-primary project-link">
+    <a class="project-card-hitbox" href={`${base}projects/client-report-generator/`} aria-label="View Client Report Generator showcase"></a>
+    <div class="project-meta">
+      <span class="status">Active</span>
+      <span>Python</span>
+      <span>CLI</span>
+    </div>
+    <h2>Client Report Generator</h2>
+    <p>A CLI tool that turns messy CSV/XLSX business exports into clear weekly reports. Built for practical reporting workflows where the source data is useful, but not client-ready.</p>
+    <span class="project-action">View showcase</span>
+  </article>
+
+  <article class="project-card">
+    <div class="project-meta">
+      <span class="status">In Development</span>
+      <span>Python</span>
+      <span>Web</span>
+    </div>
+    <h2>SiteVahti</h2>
+    <p>Website auditing and lead generation tool. Scans small business websites for issues and generates audit reports to demonstrate value to potential clients.</p>
+  </article>
+
+  <article class="project-card project-card-sm">
+    <div class="project-meta">
+      <span class="status">Live</span>
+      <span>Automation</span>
+    </div>
+    <h3>AI News Digest Bot</h3>
+    <p class="text-sm">Automated news digest that collects and summarizes AI news via scheduled cron jobs.</p>
+  </article>
+</BaseLayout>
+
+<style>
+  @property --project-glow-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  .intro {
+    color: var(--color-text-muted);
+    margin-bottom: 1.4rem;
+  }
+
+  .project-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(244, 244, 245, 0.16);
+    border-radius: 8px;
+    padding: 1.45rem;
+    margin-bottom: 1.2rem;
+    background:
+      linear-gradient(180deg, rgba(244, 244, 245, 0.048), rgba(244, 244, 245, 0.008)),
+      rgba(5, 5, 5, 0.035);
+    box-shadow:
+      0 20px 58px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(244, 244, 245, 0.07);
+    backdrop-filter: blur(5px);
+  }
+
+  .project-link {
+    transition:
+      border-color 180ms ease,
+      background 180ms ease,
+      transform 180ms ease;
+  }
+
+  .project-card-hitbox {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    border-radius: inherit;
+  }
+
+  .project-card-hitbox:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  .project-link:hover {
+    color: var(--color-text);
+    text-decoration: none;
+    border-color: rgba(244, 244, 245, 0.42);
+    background:
+      linear-gradient(180deg, rgba(244, 244, 245, 0.078), rgba(244, 244, 245, 0.018)),
+      rgba(5, 5, 5, 0.06);
+    transform: translateY(-1px);
+  }
+
+  .project-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      conic-gradient(
+        from var(--project-glow-angle, 0deg),
+        transparent 0deg,
+        transparent 76deg,
+        rgba(244, 244, 245, 0.62) 98deg,
+        transparent 122deg,
+        transparent 360deg
+      );
+    opacity: 0.52;
+    animation: project-border-orbit 9s linear infinite;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
+  .project-card::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 7px;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgba(244, 244, 245, 0.12), transparent 0.18rem),
+      linear-gradient(135deg, rgba(244, 244, 245, 0.045), transparent 42%),
+      repeating-linear-gradient(90deg, rgba(161, 161, 170, 0.028) 0 1px, transparent 1px 22px);
+  }
+
+  .project-card > *:not(.project-card-hitbox) {
+    position: relative;
+    z-index: 2;
+  }
+
+  .project-card-primary {
+    border-color: rgba(244, 244, 245, 0.24);
+    padding: 1.7rem;
+    background:
+      linear-gradient(180deg, rgba(244, 244, 245, 0.06), rgba(244, 244, 245, 0.01)),
+      rgba(5, 5, 5, 0.045);
+  }
+
+  .project-card h2 {
+    font-size: 1.35rem;
+    margin: 0 0 0.55rem;
+  }
+
+  .project-card p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.9rem;
+  }
+
+  .project-card:not(.project-card-primary) p {
+    margin-bottom: 0;
+  }
+
+  .project-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--color-text);
+    font-size: 0.84rem;
+    font-weight: 650;
+    pointer-events: none;
+  }
+
+  .project-action::after {
+    content: "->";
+    opacity: 0.72;
+  }
+
+  .project-link:hover .project-action::after {
+    opacity: 1;
+    animation: project-arrow-nudge 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .project-card-sm {
+    padding: 1.15rem;
+    opacity: 0.94;
+  }
+
+  .project-card-sm h3 {
+    font-size: 1rem;
+    margin: 0 0 0.35rem;
+  }
+
+  .project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .project-meta span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.55rem;
+    padding: 0.18rem 0.55rem;
+    font-size: 0.74rem;
+    font-weight: 650;
+    color: #d4d4d8;
+    background: rgba(161, 161, 170, 0.1);
+    border: 1px solid rgba(161, 161, 170, 0.15);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+  }
+
+  .project-meta .status {
+    color: #f8fafc;
+    background: rgba(226, 232, 240, 0.12);
+    border-color: rgba(226, 232, 240, 0.3);
+  }
+
+  @keyframes project-border-orbit {
+    from {
+      --project-glow-angle: 0deg;
+    }
+
+    to {
+      --project-glow-angle: 360deg;
+    }
+  }
+
+  @keyframes project-arrow-nudge {
+    0%,
+    100% {
+      transform: translateX(0);
+    }
+
+    38% {
+      transform: translateX(0.18rem);
+    }
+
+    68% {
+      transform: translateX(0.06rem);
+    }
+  }
+</style>
