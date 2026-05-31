@@ -1,0 +1,73 @@
+---
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+---
+
+<nav class="nav">
+  <a href={base} class="nav-logo">Jimi Prusti</a>
+  <ul class="nav-links">
+    <li><a href={base}>Home</a></li>
+    <li><a href={`${base}about/`}>About</a></li>
+    <li><a href={`${base}projects/`}>Projects</a></li>
+    <li><a href={`${base}contact/`}>Contact</a></li>
+    <li><a href={`${base}palvelut/`}>Suomeksi</a></li>
+  </ul>
+</nav>
+
+<style>
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.25rem var(--spacing);
+    max-width: var(--max-width);
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .nav-logo {
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .nav-logo:hover {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 1.35rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .nav-links a:hover {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 600px) {
+    .nav {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .nav-links {
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>
