@@ -1,0 +1,48 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Jimi Prusti - Building practical tools for real people.',
+} = Astro.props;
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+const titleSteps = Math.max(6, title.length + 2);
+---
+
+<!doctype html>
+<html lang="en" style={`--title-steps: ${titleSteps}; --title-width: ${titleSteps}ch;`}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} - Jimi Prusti</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+  </head>
+  <body>
+    <div class="matrix-bg" aria-hidden="true">
+      <span>01<br />10<br />11<br />00<br />AI<br />fn<br />01<br />{}<br />10<br />//<br />01<br />11</span>
+      <span>run<br />01<br />10<br />log<br />00<br />11<br />api<br />01<br />10<br />{}<br />11<br />01</span>
+      <span>10<br />01<br />sys<br />11<br />00<br />fn<br />10<br />AI<br />01<br />//<br />00<br />11</span>
+      <span>data<br />01<br />11<br />10<br />csv<br />00<br />run<br />01<br />{}<br />10<br />11<br />01</span>
+      <span>01<br />ops<br />10<br />11<br />00<br />ai<br />01<br />log<br />10<br />{}<br />01<br />11</span>
+      <span>10<br />11<br />01<br />xls<br />00<br />fn<br />api<br />10<br />01<br />//<br />11<br />00</span>
+      <span>flow<br />01<br />10<br />11<br />bot<br />00<br />01<br />{}<br />10<br />11<br />run<br />01</span>
+      <span>00<br />11<br />10<br />AI<br />01<br />sys<br />fn<br />00<br />10<br />01<br />//<br />11</span>
+    </div>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
