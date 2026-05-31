@@ -1,0 +1,494 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const base = import.meta.env.BASE_URL.endsWith('/')
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+const features = [
+  'CSV support',
+  'XLSX support',
+  'Finnish and English reporting',
+  'Email-ready summaries',
+  'Discord delivery',
+  'Multiple business profiles',
+  'Data validation and inspection tools',
+];
+
+const workflow = [
+  'Exports',
+  'Validation',
+  'Analysis',
+  'Report Generation',
+  'Delivery',
+];
+
+const learned = [
+  'Data normalization',
+  'Report generation',
+  'CLI application design',
+  'Testing',
+  'Business workflow automation',
+];
+
+const demoOutputs = [
+  {
+    title: 'Weekly report excerpt',
+    meta: 'Demo profile: Helsinki Bike Repair Oy',
+    body: `This was a EUR 4,030.00 week across 47 services.
+New leads: 28
+Converted leads: 17 (61%)
+Average rating: 4.1 / 5
+Open support tickets: 3 of 16
+
+Suggested actions:
+- Reply to low-rated reviews.
+- Resolve open support tickets.
+- Review capacity before extending hours.`,
+  },
+  {
+    title: 'Email summary excerpt',
+    meta: 'Email-ready demo output',
+    body: `Weekly Business Report - 2026-05-27
+
+Here is this week's summary for Helsinki Bike Repair Oy.
+It covers key numbers, the most important change,
+and what to do next.
+
+Revenue: EUR 4,030.00
+Services: 47
+New leads: 28 (17 converted, 61%)`,
+  },
+  {
+    title: 'Inspection excerpt',
+    meta: 'Messy CSV onboarding',
+    body: `FILE INSPECTION
+
+File:      sales.csv
+Encoding:  windows-1252
+Delimiter: ';'
+Rows:      47
+
+OK  Paivamaara       -> date
+OK  Tuote            -> service
+!!  Yhteensa (EUR)   unmapped
+
+Suggested alias:
+"Yhteensa (EUR)" -> "amount"`,
+  },
+];
+---
+
+<BaseLayout title="Client Report Generator">
+  <a class="back-link" href={`${base}projects/`}>Back to Projects</a>
+
+  <section class="showcase-hero">
+    <div>
+      <p class="eyebrow">Private project · Reporting automation</p>
+      <h1 style="--title-steps: 23; --title-width: 23ch;">Client Report Generator</h1>
+      <p class="intro">
+        A practical reporting system that turns messy business exports into clear weekly reports,
+        email summaries, and actionable insights.
+      </p>
+    </div>
+    <div class="status-panel">
+      <span>Status</span>
+      <strong>Private project</strong>
+      <p>Source code is private, demo outputs shown below.</p>
+    </div>
+  </section>
+
+  <section class="split-section">
+    <article class="glass-panel">
+      <span class="section-kicker">Problem</span>
+      <h2>Useful data gets trapped in exports.</h2>
+      <p>
+        Small businesses often have valuable operational data inside CSV and XLSX exports from POS,
+        booking, spreadsheet, or support tools, but the raw files are rarely clean enough to send
+        directly to a client.
+      </p>
+    </article>
+
+    <article class="glass-panel">
+      <span class="section-kicker">Solution</span>
+      <h2>A repeatable weekly reporting workflow.</h2>
+      <p>
+        The system validates incoming files, normalizes messy fields, calculates business metrics,
+        generates reports in English or Finnish, and prepares summaries for delivery.
+      </p>
+    </article>
+  </section>
+
+  <section>
+    <span class="section-kicker">Key features</span>
+    <h2>Built for practical client work.</h2>
+    <ul class="feature-grid">
+      {features.map((feature) => <li>{feature}</li>)}
+    </ul>
+  </section>
+
+  <section>
+    <span class="section-kicker">Workflow</span>
+    <h2>From raw export to review-ready report.</h2>
+    <div class="workflow">
+      {workflow.map((step, index) => (
+        <div class="workflow-step">
+          <span>{String(index + 1).padStart(2, '0')}</span>
+          <strong>{step}</strong>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <span class="section-kicker">Demo outputs</span>
+    <h2>Real demo outputs from the reporting workflow.</h2>
+    <p class="section-note">Source code is private, demo outputs shown below.</p>
+    <div class="output-grid">
+      {demoOutputs.map((item) => (
+        <article class="output-card">
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.meta}</p>
+          </div>
+          <pre>{item.body}</pre>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="split-section">
+    <article class="glass-panel">
+      <span class="section-kicker">What I learned</span>
+      <h2>Lessons from building the pipeline.</h2>
+      <ul>
+        {learned.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+
+    <article class="glass-panel">
+      <span class="section-kicker">Architecture</span>
+      <h2>Small, inspectable, and practical.</h2>
+      <p>
+        The project keeps the pipeline linear: ingestion, validation, metrics, trends, report
+        generation, and optional delivery. The goal is a tool that is easy to inspect before
+        anything is sent to a client.
+      </p>
+    </article>
+  </section>
+</BaseLayout>
+
+<style>
+  @property --showcase-glow-angle {
+    syntax: '<angle>';
+    inherits: false;
+    initial-value: 0deg;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 1.6rem;
+    color: var(--color-text-muted);
+    font-size: 0.86rem;
+    font-weight: 650;
+  }
+
+  .back-link::before {
+    content: "<-";
+    opacity: 0.7;
+  }
+
+  .showcase-hero {
+    display: grid;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  .eyebrow,
+  .section-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-accent);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    margin-bottom: 0.8rem;
+  }
+
+  .eyebrow::before,
+  .section-kicker::before {
+    content: "";
+    width: 0.46rem;
+    height: 0.46rem;
+    border-radius: 50%;
+    background: var(--color-accent-strong);
+    box-shadow: 0 0 16px rgba(244, 244, 245, 0.36);
+  }
+
+  .intro {
+    max-width: 680px;
+    color: var(--color-text-muted);
+    font-size: 1.15rem;
+  }
+
+  .showcase-hero .status-panel,
+  .split-section,
+  .section-kicker,
+  .feature-grid,
+  .workflow,
+  .section-note,
+  .output-grid {
+    opacity: 0;
+    animation: content-reveal 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--showcase-reveal-delay, 1s);
+  }
+
+  .showcase-hero .status-panel {
+    --showcase-reveal-delay: 1.02s;
+  }
+
+  .split-section {
+    --showcase-reveal-delay: 1.14s;
+  }
+
+  .section-kicker {
+    --showcase-reveal-delay: 1.22s;
+  }
+
+  .feature-grid {
+    --showcase-reveal-delay: 1.32s;
+  }
+
+  .workflow {
+    --showcase-reveal-delay: 1.42s;
+  }
+
+  .section-note,
+  .output-grid {
+    --showcase-reveal-delay: 1.52s;
+  }
+
+  .status-panel,
+  .glass-panel,
+  .output-card,
+  .workflow-step {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(244, 244, 245, 0.16);
+    border-radius: 8px;
+    background:
+      linear-gradient(180deg, rgba(244, 244, 245, 0.055), rgba(244, 244, 245, 0.012)),
+      rgba(5, 5, 5, 0.045);
+    box-shadow:
+      0 20px 58px rgba(0, 0, 0, 0.19),
+      inset 0 1px 0 rgba(244, 244, 245, 0.07);
+    backdrop-filter: blur(5px);
+  }
+
+  .status-panel::before,
+  .glass-panel::before,
+  .output-card::before,
+  .workflow-step::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background:
+      conic-gradient(
+        from var(--showcase-glow-angle, 0deg),
+        transparent 0deg,
+        transparent 78deg,
+        rgba(244, 244, 245, 0.5) 98deg,
+        transparent 120deg,
+        transparent 360deg
+      );
+    opacity: 0.35;
+    animation: showcase-border-orbit 10s linear infinite;
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
+  .status-panel,
+  .glass-panel,
+  .output-card,
+  .workflow-step {
+    padding: 1.1rem;
+  }
+
+  .status-panel span,
+  .section-kicker,
+  .section-note,
+  .output-card p {
+    color: var(--color-text-muted);
+  }
+
+  .status-panel strong {
+    display: block;
+    margin: 0.2rem 0 0.45rem;
+    color: var(--color-text);
+    font-size: 1.05rem;
+  }
+
+  .status-panel p,
+  .glass-panel p {
+    color: var(--color-text-muted);
+    margin-bottom: 0;
+  }
+
+  section {
+    margin-bottom: 2.25rem;
+  }
+
+  .split-section {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .glass-panel > *,
+  .status-panel > *,
+  .output-card > *,
+  .workflow-step > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .glass-panel h2,
+  section > h2 {
+    margin-top: 0;
+  }
+
+  .glass-panel h2,
+  .glass-panel ul,
+  .output-card h3,
+  .output-card p,
+  .output-card pre {
+    opacity: 1;
+    animation: none;
+  }
+
+  .feature-grid {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1rem;
+  }
+
+  .feature-grid li {
+    min-height: 3rem;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(244, 244, 245, 0.12);
+    border-radius: 8px;
+    padding: 0.75rem 0.9rem 0.75rem 2.35rem;
+    background: rgba(244, 244, 245, 0.035);
+  }
+
+  .feature-grid li::before {
+    left: 0.78rem;
+    top: 50%;
+    animation: feature-triangle-marker 2.8s ease-in-out infinite;
+  }
+
+  .feature-grid li::after {
+    display: none;
+  }
+
+  .workflow,
+  .output-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .workflow-step {
+    min-height: 5.5rem;
+  }
+
+  .workflow-step span {
+    display: block;
+    color: var(--color-text-muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 0.45rem;
+  }
+
+  .workflow-step strong {
+    display: block;
+    color: var(--color-text);
+    font-size: 1rem;
+  }
+
+  .output-card h3 {
+    margin: 0 0 0.25rem;
+  }
+
+  .output-card p {
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
+  }
+
+  .output-card pre {
+    margin: 0;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font: 0.82rem/1.55 ui-monospace, SFMono-Regular, Consolas, Liberation Mono, monospace;
+    color: #d4d4d8;
+  }
+
+  @media (min-width: 720px) {
+    .split-section {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .workflow {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .output-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 500px) {
+    .showcase-hero h1 {
+      font-size: 1.72rem;
+    }
+  }
+
+  @keyframes showcase-border-orbit {
+    from {
+      --showcase-glow-angle: 0deg;
+    }
+
+    to {
+      --showcase-glow-angle: 360deg;
+    }
+  }
+
+  @keyframes feature-triangle-marker {
+    0%,
+    100% {
+      opacity: 0.56;
+      transform: translateY(-50%) scale(0.92);
+    }
+
+    50% {
+      opacity: 0.95;
+      transform: translateY(calc(-50% - 0.03rem)) scale(1);
+    }
+  }
+</style>
